@@ -9,7 +9,7 @@ model = genai.GenerativeModel(
 'gemini-2.5-flash', 
 system_instruction="Passionate tour guide about all local areas to help people explore new adventures!")
 def ask_questions():
-    questList = ["Nights Budget ","City/Town ","Neighborhood(if you want a less specific search can jsut ask for region) ","Type of food (ie vegitarian seafood etc) ","what time of the day? "]
+    questList = ["Nights Budget ","City/Town ","Neighborhood(if you want a less specific search can jsut ask for region) ","Type of food (ie vegetarian seafood etc) ","what time of the day? "]
     searchTerms = []
     print("May I help you find a sutible place to eat? ")
     for question in questList:
@@ -29,10 +29,34 @@ def dineout(searchterms):
         question += item + "and"
     return question
 
+def Activities_Quest():
+    quest = " "
+    search = []
+    questsList = ["What City are you in?","What type of event is it","What time do you want to go?"]
+    print("How can I help you find a nice place to go today?")
+    for questions in questsList:
+        quest = input(questions)
+        search.append(quest)
+    return search
+
+def Activities(search):
+    question = "Can you find me a cool place to go out tonight in"
+    for item in search:
+        question += item + "and"
+    return question
+
 def main():
-    terms = ask_questions()
-    prompt = dineout(terms)
+    choice = 1
+    choice = int(input("1 for restaurants 2 for Activities;"))
+    if choice == 1:
+        terms = ask_questions()
+        prompt = dineout(terms)
+    elif choice == 2:
+        terms = Activities_Quest()
+        prompt = Activities(terms)
     print(get_ai_response(prompt))
+    
+    
     
 
 if __name__ == "__main__":
