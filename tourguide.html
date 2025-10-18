@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tour Guide</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f0f2f5; color: #1c1e21; margin: 0; padding: 20px; }
+        .container { max-width: 700px; margin: 40px auto; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1 { color: #333; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ddd; font-size: 16px; box-sizing: border-box; }
+        button { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        #response-container { margin-top: 20px; padding: 15px; background-color: #e9ecef; border-radius: 6px; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>AI Tour Guide</h1>
+        <p>Let me help you find the perfect place to eat!</p>
+
+        <div id="tour-form">
+            <div class="form-group">
+                <label for="budget">Night's Budget</label>
+                <input type="text" id="budget" placeholder="e.g., $, $$, $$$">
+            </div>
+            <div class="form-group">
+                <label for="city">City/Town</label>
+                <input type="text" id="city" placeholder="e.g., New York">
+            </div>
+            <div class="form-group">
+                <label for="neighborhood">Neighborhood / Region</label>
+                <input type="text" id="neighborhood" placeholder="e.g., Greenwich Village">
+            </div>
+            <div class="form-group">
+                <label for="food_type">Type of Food</label>
+                <input type="text" id="food_type" placeholder="e.g., Vegetarian, Seafood, Italian">
+            </div>
+            <div class="form-group">
+                <label for="time_of_day">Time of Day</label>
+                <input type="text" id="time_of_day" placeholder="e.g., Dinner, Lunch, Late-night">
+            </div>
+            <button onclick="submitTourGuideRequest()">Find a Restaurant</button>
+        </div>
+
+        <div id="response-container">
+            The AI's recommendation will appear here...
+        </div>
+    </div>
+
+    <script>
+        async function submitTourGuideRequest() {
+            const responseContainer = document.getElementById('response-container');
+            
+            // Gather all the inputs into an object
+            const searchTerms = {
+                budget: document.getElementById('budget').value,
+                city: document.getElementById('city').value,
+                neighborhood: document.getElementById('neighborhood').value,
+                food_type: document.getElementById('food_type').value,
+                time_of_day: document.getElementById('time_of_day').value
+            };
+
+            responseContainer.innerText = 'The AI is searching for recommendations...';
+
+            try {
+                const response = await fetch('/api/tourguide', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ search_terms: searchTerms })
+                });
+
+                const data = await response.json();
+                responseContainer.innerText = data.response || data.error;
+
+            } catch (error) {
+                responseContainer.innerText = 'An error occurred while contacting the server.';
+                console.error('Error:', error);
+            }
+        }
+    </script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tour Guide</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f0f2f5; color: #1c1e21; margin: 0; padding: 20px; }
+        .container { max-width: 700px; margin: 40px auto; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1 { color: #333; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ddd; font-size: 16px; box-sizing: border-box; }
+        button { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        #response-container { margin-top: 20px; padding: 15px; background-color: #e9ecef; border-radius: 6px; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>AI Tour Guide</h1>
+        <p>Let me help you find the perfect place to eat!</p>
+
+        <div id="tour-form">
+            <div class="form-group">
+                <label for="budget">Night's Budget</label>
+                <input type="text" id="budget" placeholder="e.g., $, $$, $$$">
+            </div>
+            <div class="form-group">
+                <label for="city">City/Town</label>
+                <input type="text" id="city" placeholder="e.g., New York">
+            </div>
+            <div class="form-group">
+                <label for="neighborhood">Neighborhood / Region</label>
+                <input type="text" id="neighborhood" placeholder="e.g., Greenwich Village">
+            </div>
+            <div class="form-group">
+                <label for="food_type">Type of Food</label>
+                <input type="text" id="food_type" placeholder="e.g., Vegetarian, Seafood, Italian">
+            </div>
+            <div class="form-group">
+                <label for="time_of_day">Time of Day</label>
+                <input type="text" id="time_of_day" placeholder="e.g., Dinner, Lunch, Late-night">
+            </div>
+            <button onclick="submitTourGuideRequest()">Find a Restaurant</button>
+        </div>
+
+        <div id="response-container">
+            The AI's recommendation will appear here...
+        </div>
+    </div>
+
+    <script>
+        async function submitTourGuideRequest() {
+            const responseContainer = document.getElementById('response-container');
+            
+            // Gather all the inputs into an object
+            const searchTerms = {
+                budget: document.getElementById('budget').value,
+                city: document.getElementById('city').value,
+                neighborhood: document.getElementById('neighborhood').value,
+                food_type: document.getElementById('food_type').value,
+                time_of_day: document.getElementById('time_of_day').value
+            };
+
+            responseContainer.innerText = 'The AI is searching for recommendations...';
+
+            try {
+                const response = await fetch('/api/tourguide', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ search_terms: searchTerms })
+                });
+
+                const data = await response.json();
+                responseContainer.innerText = data.response || data.error;
+
+            } catch (error) {
+                responseContainer.innerText = 'An error occurred while contacting the server.';
+                console.error('Error:', error);
+            }
+        }
+    </script>
+
+</body>
+</html>
